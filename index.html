@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio San Ignacio - Sixth Grade Interactive Oral Activity</title>
+    <style>
+        /* ==========================================================================
+           1. CORE STYLES & COLOR PALETTE (OXFORD BLUE THEME)
+           ========================================================================== */
+        :root {
+            --oxford-blue: #002147;
+            --oxford-blue-light: #1a365d;
+            --accent-gold: #d4af37;
+            --primary-hover: #0f2b5c;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --success: #10b981;
+            --success-hover: #059669;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           2. OXFORD BLUE HEADER SECTION
+           ========================================================================== */
+        header.oxford-header {
+            background-color: var(--oxford-blue);
+            color: #ffffff;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            border-bottom: 5px solid var(--accent-gold);
+        }
+
+        header.oxford-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        header.oxford-header h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #e2e8f0;
+            letter-spacing: 0.025em;
+        }
+
+        /* ==========================================================================
+           3. STUDENT DATA FORM (CLASS, NAME, DATE)
+           ========================================================================== */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .student-info-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--oxford-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background-color: #f8fafc;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--oxford-blue);
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.15);
+            background-color: #ffffff;
+        }
+
+        /* ==========================================================================
+           4. INSTRUCTIONS & MODEL AUDIO SECTION
+           ========================================================================== */
+        .instructions-card h3 {
+            font-size: 1.25rem;
+            color: var(--oxford-blue);
+            margin-bottom: 1rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-item {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--oxford-blue);
+            font-size: 0.95rem;
+        }
+
+        .step-number {
+            font-weight: bold;
+            color: var(--oxford-blue);
+            margin-right: 0.25rem;
+        }
+
+        .model-audio-box {
+            background: #f0fdf4;
+            border: 2px dashed #4ade80;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+        }
+
+        .model-audio-box label {
+            display: block;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           5. USEFUL CHUNKS SECTION
+           ========================================================================== */
+        .chunks-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+        }
+
+        .chunks-section h3 {
+            color: #0369a1;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .chunks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .chunk-pill {
+            background: var(--bg-card);
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: #0c4a6e;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e0f2fe;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .chunk-pill::before {
+            content: "💬";
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* ==========================================================================
+           6. QUESTION & RECORDING CARDS
+           ========================================================================== */
+        .question-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--bg-body);
+            padding-bottom: 0.75rem;
+        }
+
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--oxford-blue);
+        }
+
+        .audio-player-wrapper {
+            background: var(--bg-body);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .audio-player-wrapper label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+        }
+
+        .prompt-box {
+            background: #fffbe3;
+            border: 1px solid #fde047;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .prompt-box h3 {
+            color: #854d0e;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .recorder-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #fafafa;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+        }
+
+        .controls-group {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-record {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-record:hover:not(:disabled) {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-stop {
+            background-color: var(--text-muted);
+            color: white;
+        }
+
+        .btn-stop:hover:not(:disabled) {
+            background-color: var(--text-main);
+        }
+
+        .btn-download {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-download:hover {
+            background-color: var(--success-hover);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .recording-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+        }
+
+        .status-dot.active {
+            background-color: var(--danger);
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .student-playback {
+            margin-top: 0.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .student-playback.visible {
+            display: flex;
+        }
+
+        .permission-warning {
+            background-color: #fef2f2;
+            color: var(--danger);
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem 0.5rem; }
+            header.oxford-header h1 { font-size: 1.75rem; }
+            .controls-group { flex-direction: column; align-items: stretch; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- OXFORD BLUE HEADER -->
+        <header class="oxford-header">
+            <h1>COLEGIO SAN IGNACIO</h1>
+            <h2>Sixth Grade - Interactive Oral Activity</h2>
+        </header>
+
+        <!-- STUDENT INFORMATION FORM -->
+        <section class="card">
+            <div class="student-info-form">
+                <div class="form-group">
+                    <label for="class-select">Class</label>
+                    <select id="class-select" class="form-control" onchange="updateStudentDropdown()">
+                        <option value="">Select your class</option>
+                        <option value="6th grade A">6th grade A</option>
+                        <option value="6th grade B">6th grade B</option>
+                        <option value="6th grade C">6th grade C</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="student-select">Student Name</label>
+                    <select id="student-select" class="form-control" disabled>
+                        <option value="">Select your name</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date-input">Date</label>
+                    <input type="date" id="date-input" class="form-control">
+                </div>
+            </div>
+        </section>
+
+        <!-- INSTRUCTIONS & MODEL AUDIO -->
+        <section class="card instructions-card">
+            <h3> Instructions</h3>
+            <ol class="steps-list">
+                <li class="step-item"><span class="step-number">1.</span> Select your <strong>Class</strong>, <strong>Name</strong>, and date above.</li>
+                <li class="step-item"><span class="step-number">2.</span> Listen to the <strong>Audio Model</strong> below to hear how to respond.</li>
+                <li class="step-item"><span class="step-number">3.</span> Listen carefully to the music clip in each question.</li>
+                <li class="step-item"><span class="step-number">4.</span> Use the <strong>Useful Chunks</strong> expressions to formulate your oral response.</li>
+                <li class="step-item"><span class="step-number">5.</span> Record your response and click <strong>Download Recording</strong>.</li>
+                <li class="step-item"><span class="step-number">6.</span> Upload all 4 downloaded audio files to Google Classroom.</li>
+            </ol>
+
+            <!-- MODEL AUDIO PLAYER -->
+            <div class="model-audio-box">
+                <label>🎧 Audio Model / Example (Listen before starting):ROCK, INDIE MUSIC, CLASSICAL, POP, REGGAE, HIP HOP, JAZZ, CUMBIA, SALSA</label>
+                <audio controls src="q0example_introduction.mp3"></audio>
+            </div>
+        </section>
+
+        <!-- USEFUL CHUNKS BOX WITH BOLDED KEY STRUCTURES -->
+        <section class="card chunks-section">
+            <h3> Useful Chunks (Speaking Support)</h3>
+            <div class="chunks-grid">
+                <div class="chunk-pill"><span><strong>Wow, it’s definitely</strong> salsa because of the fast rhythm and trumpets!</span></div>
+                <div class="chunk-pill"><span><strong>Oh, this must be</strong> salsa! <strong>I can hear</strong> the percussion and it makes me want to dance.</span></div>
+                <div class="chunk-pill"><span><strong>This has to be</strong> rock music! The electric guitars and drums are so loud.</span></div>
+                <div class="chunk-pill"><span><strong>No doubt, it’s</strong> rock! <strong>The energy is high</strong> and the guitar solo is amazing.</span></div>
+                <div class="chunk-pill"><span><strong>I’m pretty sure this is</strong> reggae because <strong>the beat is very relaxed</strong> and chill.</span></div>
+                <div class="chunk-pill"><span><strong>It’s probably</strong> rock music because the singer is shouting and the drums are fast.</span></div>
+                <div class="chunk-pill"><span><strong>I think this is indie music.</strong> <strong>It sounds calm</strong> and the singer’s voice is soft.</span></div>
+                <div class="chunk-pill"><span><strong>Maybe it’s indie?</strong> The music is quiet and uses acoustic guitars.</span></div>
+            </div>
+        </section>
+
+        <!-- PERMISSION WARNING -->
+        <div id="mic-warning" class="permission-warning">
+            ⚠️ Microphone access is required for this activity. Please allow microphone permissions in your browser.
+        </div>
+
+        <!-- QUESTION 5 -->
+        <article class="card question-card" id="q1">
+            <div class="question-header">
+                <span class="question-title">Question 1</span>
+            </div>
+            
+            <div class="audio-player-wrapper">
+                <label>1. Listen to the Audio Clip</label>
+                <audio controls src="q5rock.mp3"></audio>
+            </div>
+
+           
+            <div class="recorder-section">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">2. Record Your Answer</label>
+                
+                <div class="controls-group">
+                    <button class="btn btn-record" onclick="startRecording(1)">
+                        🎤 Start Recording
+                    </button>
+                    <button class="btn btn-stop" onclick="stopRecording(1)" disabled>
+                        ⏹️ Stop Recording
+                    </button>
+                    <div class="recording-status">
+                        <span class="status-dot" id="dot-1"></span>
+                        <span id="status-1">Ready</span>
+                    </div>
+                </div>
+
+                <div class="student-playback" id="playback-container-1">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Listen to your recording & download for Classroom:</label>
+                    <audio id="audio-playback-1" controls></audio>
+                    <a id="download-btn-1" class="btn btn-download" download>
+                        📥 Download Recording (q1)
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- QUESTION 6 -->
+        <article class="card question-card" id="q2">
+            <div class="question-header">
+                <span class="question-title">Question 2</span>
+            </div>
+            
+            <div class="audio-player-wrapper">
+                <label>1. Listen to the Audio Clip</label>
+                <audio controls src="q6jazz.mp3"></audio>
+            </div>
+
+            
+            <div class="recorder-section">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">2. Record Your Answer</label>
+                
+                <div class="controls-group">
+                    <button class="btn btn-record" onclick="startRecording(2)">
+                        🎤 Start Recording
+                    </button>
+                    <button class="btn btn-stop" onclick="stopRecording(2)" disabled>
+                        ⏹️ Stop Recording
+                    </button>
+                    <div class="recording-status">
+                        <span class="status-dot" id="dot-2"></span>
+                        <span id="status-2">Ready</span>
+                    </div>
+                </div>
+
+                <div class="student-playback" id="playback-container-2">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Listen to your recording & download for Classroom:</label>
+                    <audio id="audio-playback-2" controls></audio>
+                    <a id="download-btn-2" class="btn btn-download" download>
+                        📥 Download Recording (q2)
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- QUESTION 7 -->
+        <article class="card question-card" id="q3">
+            <div class="question-header">
+                <span class="question-title">Question 3</span>
+            </div>
+            
+            <div class="audio-player-wrapper">
+                <label>1. Listen to the Audio Clip</label>
+                <audio controls src="q7cumbia.mp3"></audio>
+            </div>
+
+          
+            <div class="recorder-section">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">2. Record Your Answer</label>
+                
+                <div class="controls-group">
+                    <button class="btn btn-record" onclick="startRecording(3)">
+                        🎤 Start Recording
+                    </button>
+                    <button class="btn btn-stop" onclick="stopRecording(3)" disabled>
+                        ⏹️ Stop Recording
+                    </button>
+                    <div class="recording-status">
+                        <span class="status-dot" id="dot-3"></span>
+                        <span id="status-3">Ready</span>
+                    </div>
+                </div>
+
+                <div class="student-playback" id="playback-container-3">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Listen to your recording & download for Classroom:</label>
+                    <audio id="audio-playback-3" controls></audio>
+                    <a id="download-btn-3" class="btn btn-download" download>
+                        📥 Download Recording (q3)
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- QUESTION 8 -->
+        <article class="card question-card" id="q4">
+            <div class="question-header">
+                <span class="question-title">Question 4</span>
+            </div>
+            
+            <div class="audio-player-wrapper">
+                <label>1. Listen to the Audio Clip</label>
+                <audio controls src="q8reggae.mp3"></audio>
+            </div>
+
+                       <div class="recorder-section">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">2. Record Your Answer</label>
+                
+                <div class="controls-group">
+                    <button class="btn btn-record" onclick="startRecording(4)">
+                        🎤 Start Recording
+                    </button>
+                    <button class="btn btn-stop" onclick="stopRecording(4)" disabled>
+                        ⏹️ Stop Recording
+                    </button>
+                    <div class="recording-status">
+                        <span class="status-dot" id="dot-4"></span>
+                        <span id="status-4">Ready</span>
+                    </div>
+                </div>
+
+                <div class="student-playback" id="playback-container-4">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Listen to your recording & download for Classroom:</label>
+                    <audio id="audio-playback-4" controls></audio>
+                    <a id="download-btn-4" class="btn btn-download" download>
+                        📥 Download Recording (q4)
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ==========================================================================
+       7. JAVASCRIPT: STUDENT DATA, DROPDOWNS & MEDIA RECORDER WITH DOWNLOAD
+       ========================================================================== -->
+    <script>
+        // Set default date to today
+        document.getElementById('date-input').valueAsDate = new Date();
+
+        // Student Database Organized by Class
+        const studentsData = {
+            "6th grade A": [
+                "ARELLANO CORTÉS VALENTÍN ALONSO", "BUSTOS QUEZADA FELIPE ALONSO",
+                "CALDERÓN LEZCANO ISIDORA MARTINA", "CARO ORELLANA AGUSTINA ANTONIA", "CÉSPEDES SÁNCHEZ JOSEFINA IGNACIA",
+                "CUEVAS MAHN IGNACIO ALEJANDRO", "DÍAZ GUTIÉRREZ TOMÁS ALONSO", "DÍAZ MEDEL VIOLETA EMILIANA",
+                "DÍAZ TORO ALBERTO ALEJANDRO", "ESCOBEDO DE LA FUENTE VALENTINA ANDREA", "GILCHRIST VALDÉS ALEXANDER NEDJELJKO",
+                "GÓMEZ GALLARDO TERESITA EMILIA", "GÓMEZ ZÚÑIGA JOSÉ IGNACIO", "GUERRERO MORENO GABRIEL",
+                "GUTIÉRREZ PACHECO ANTONIA CAROLINA", "GUZMÁN MINA CATALINA PAZ", "GUZMÁN ZAMORA JOSÉ TOMÁS",
+                "HONTAVILLA ROGAZY CATALINA FERNANDA", "MANRÍQUEZ CATALÁN MARIANA IGNACIA", "OJEDA ESTEVEZ VICTORIA ANTONELLA",
+                "OPAZO CABEZAS EMILIA ALOISE", "OSORIO BERRIOS GASTÓN ALONSO VITAL", "PEÑAS SOTO SANTIAGO RAFAEL",
+                "PINTO CASTRO MATEO IGNACIO", "POZO URETA CRISTÓBAL VALENTÍN", "PRADENA PEREDO ANTONIA HELENA",
+                "RAMÍREZ ESPINOZA DIEGO JOAQUÍN", "RIVEROS ALVAREZ FRANCISCA ANDREA", "RODRÍGUEZ MERCADO GUSTAVO VENTURA",
+                "VALENZUELA CANALES MARTINA PASCALE", "VÁSQUEZ CONTRERAS MARÍA FERNANDA", "VERA RUIZ MATILDE IGNACIA",
+                "VILLAR RAULD NICOLÁS AGUSTÍN", "VILLEGAS LLANCO JUAN IGNACIO", "YÁÑEZ ESPINOZA DIEGO ANTONIO"
+            ],
+            "6th grade B": [
+                "ARAVENA RUZ VICENTE ALEJANDRO", "ARÍSTEGUI PARRAGUEZ PASCALE AURORA", "BLANCO VERA GABRIEL ADOLFO",
+                "BRITO JOFRÉ EMILIA JOSEFINA", "BRUNET CUELLAR SEBASTIÁN ARIEL", "CERPA CARRILLO EMILIA JESÚS",
+                "FUENZALIDA PARRA VIOLETA", "GONZÁLEZ VERGARA IGNACIO ANTONIO", "GORNALL ALARCON RAYEN ELUNEY",
+                "LABRAÑA BARRERA AMANDA LOURDES", "LEÓN DÁVILA TOMÁS IGNACIO", "LEÓN SAAVEDRA NICOLE VICTORIA",
+                "LILLO SALDAÑA FRANCISCA SOFÍA", "LOYOLA HERRERA JOSEFA IGNACIA", "MAHNCKE MONSALVE IGNACIO ANTONIO",
+                "MALDONADO SEGOVIA SANTIAGO AGUSTÍN", "MENA BRAVO RAÚL ALBERTO", "MORENO BRACAMONTE MARCO ALEJANDRO",
+                "MOYA MADERO JOSEFINA EMILIA", "NOVA ACEVEDO MARTINA IGNACIA", "OLIVARES CATRO JOSEFINA PAZ",
+                "ORTIZ DONOSO SIMONA IGNACIA", "PÉREZ GONZÁLEZ ALONSO SEBASTIÁN", "POVEDA SERRANO PABLO SALVADOR",
+                "RAMÍREZ LÓPEZ JOSÉ MIGUEL", "REBOLLO FUENTES BENJAMÍN IGNACIO", "RIESCO MENDOZA TOMAS FELIPE",
+                "RUBIO ROSAS JULIÁN ALEJANDRO", "SMOK RODRÍGUEZ LAURA VICTORIA", "SOTO GONZÁLEZ JOSEFA IGNACIA",
+                "VENEGAS ARANCIBIA DIEGO TOMÁS", "VERDEJO GALLEGUILLOS BENJAMÍN TOMÁS ANTONIO", "VIDAL TORRES GONZALO ANTONIO",
+                "VILLALOBOS GUEVARA JULIÁN ERNESTO", "YÁÑEZ LÓPEZ FERNANDA SOFÍA", "VILLAGRA ALARCÓN ANITA CAROLINA"
+            ],
+            "6th grade C": [
+                "ABURTO ROMERO PABLO IGNACIO", "ACEVEDO GARRIDO ANAHÍ", "APIOLAZA SCACCHI TOMÁS ANDRÉS",
+                "ARBURO LEÓN BRUNO AUGUSTO", "BAHAMONDES CÁCERES CAMILA MAGDALENA", "CABAÑAS GUIMPERT DAMIÁN",
+                "CÁCERES MUÑOZ LAURA SOFÍA", "CALDERÓN ZAMORA FACUNDO", "CORREA PIÑA RENATA IGNACIA",
+                "CUEVAS VIVALLO AMANDA SOFÍA", "DELGADO OLIVA CATALINA HELENA", "DÍAZ ARAGÓN GONZALO ANDRÉS",
+                "DÍAZ PÉREZ ROCÍO VICTORIA", "FAJARDO GALLEGOS SEBASTIÁN IGNACIO", "LABRA MERIÑO SEBASTIÁN GABRIEL",
+                "MARCHANT CARRANCIO PÍA CAROLINA", "MARCHANT ESCANDOR ISABELLA", "MOLINEAUX CEPEDA LEONOR VIOLETA",
+                "MUÑOZ NORAMBUENA JOAQUÍN EDUARDO", "OLIVA RODRÍGUEZ MARTINA BELÉN", "OLIVARES CASTILLO FRANCISCA FERNANDA",
+                "OLIVARES SÁNCHEZ RAÚL ALONSO", "PEÑA MARTÍN CAROLINA", "REYGADAS MUÑOZ MÁXIMO VALENTINO",
+                "RIFFO FERNÁNDEZ VALENTÍN", "RODRÍGUEZ YÁÑEZ BEATRIZ AMALIA", "RUIZ URZÚA CLEMENTE ALONSO",
+                "RUTHERFORD RUTHERFORD MARÍA GRACIA", "SALINAS ZAMORANO VICENTE RAFAEL", "SILVA MANRÍQUEZ GASPAR SALVADOR",
+                "TRUJILLO PINTO ALONSO ANDRÉS", "URZÚA LAROZE FRANCISCO JAVIER", "VARGAS URRUTIA AMANDA IGNACIA",
+                "VALIENTE NÚÑEZ MARÍA PAZ", "VELASCO BARCELÓ GASPAR ANTÜ", "WALKER TORRES SALVADOR",
+                "ZÚÑIGA ARAVENA JOAQUÍN ALONSO"
+            ]
+        };
+
+        // Populate Student Dropdown dynamically based on selected class
+        function updateStudentDropdown() {
+            const classSelect = document.getElementById('class-select');
+            const studentSelect = document.getElementById('student-select');
+            const selectedClass = classSelect.value;
+
+            studentSelect.innerHTML = '<option value="">Select your name</option>';
+
+            if (selectedClass && studentsData[selectedClass]) {
+                studentsData[selectedClass].forEach(student => {
+                    const option = document.createElement('option');
+                    option.value = student;
+                    option.textContent = student;
+                    studentSelect.appendChild(option);
+                });
+                studentSelect.disabled = false;
+            } else {
+                studentSelect.disabled = true;
+            }
+        }
+
+        // Recording logic and MediaRecorder state management
+        const recorders = {};
+        const audioChunks = {};
+        const mediaStreams = {};
+
+        async function startRecording(qId) {
+            const warningEl = document.getElementById('mic-warning');
+            const studentSelect = document.getElementById('student-select');
+            
+            if (!studentSelect.value) {
+                alert('Please select your class and name before recording!');
+                studentSelect.focus();
+                return;
+            }
+
+            warningEl.style.display = 'none';
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaStreams[qId] = stream;
+                
+                recorders[qId] = new MediaRecorder(stream);
+                audioChunks[qId] = [];
+
+                recorders[qId].ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks[qId].push(event.data);
+                    }
+                };
+
+                recorders[qId].onstop = () => {
+                    const audioBlob = new Blob(audioChunks[qId], { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    
+                    // Attach URL to audio player preview
+                    const playbackElement = document.getElementById(`audio-playback-${qId}`);
+                    playbackElement.src = audioUrl;
+
+                    // Configure Download Link with exact required naming scheme
+                    const studentName = document.getElementById('student-select').value || 'Student';
+                    const downloadBtn = document.getElementById(`download-btn-${qId}`);
+                    
+                    downloadBtn.href = audioUrl;
+                    downloadBtn.download = `${studentName} speaking task 2 q${qId}.webm`;
+
+                    // Show playback container
+                    document.getElementById(`playback-container-${qId}`).classList.add('visible');
+
+                    // Stop microphone tracks
+                    if (mediaStreams[qId]) {
+                        mediaStreams[qId].getTracks().forEach(track => track.stop());
+                    }
+                };
+
+                recorders[qId].start();
+                updateUIState(qId, true);
+
+            } catch (err) {
+                console.error('Microphone Access Error:', err);
+                warningEl.style.display = 'block';
+            }
+        }
+
+        function stopRecording(qId) {
+            if (recorders[qId] && recorders[qId].state !== 'inactive') {
+                recorders[qId].stop();
+                updateUIState(qId, false);
+            }
+        }
+
+        function updateUIState(qId, isRecording) {
+            const card = document.getElementById(`q${qId}`);
+            const startBtn = card.querySelector('.btn-record');
+            const stopBtn = card.querySelector('.btn-stop');
+            const statusDot = document.getElementById(`dot-${qId}`);
+            const statusText = document.getElementById(`status-${qId}`);
+
+            if (isRecording) {
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                statusDot.classList.add('active');
+                statusText.textContent = 'Recording...';
+                statusText.style.color = 'var(--danger)';
+            } else {
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                statusDot.classList.remove('active');
+                statusText.textContent = 'Recorded';
+                statusText.style.color = 'var(--success)';
+            }
+        }
+    </script>
+</body>
+</html>
